@@ -1,0 +1,1 @@
+import type { Metadata } from "next";import "./globals.css";export const metadata:Metadata={title:"PAPERLAB — Interactive Research Atlas",description:"Research papers explored as interactive science labs"};export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body>{children}</body></html>}
