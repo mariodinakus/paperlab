@@ -1,13 +1,12 @@
 {
-  "name": "paperlab-research-simulator",
+  "name": "paperlab",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "postinstall": "node scripts/bootstrap.cjs",
-    "build": "node scripts/bootstrap.cjs && next build",
-    "dev": "node scripts/bootstrap.cjs && next dev",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
-    "typecheck": "node scripts/bootstrap.cjs && tsc --noEmit"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "next": "16.2.12",
