@@ -4,6 +4,7 @@ import {useLanguage} from "./LanguageProvider";
 import {guides} from "../lib/guides";
 import type {Paper} from "../lib/catalog";
 import type {LabResult} from "../lib/engine";
+import {localizedMetric} from "../lib/localized-labels";
 
 const stages:Record<string,[string,string,string,string,string,string]>={
 cascades:["Αρχικά μόνο πέντε κόμβοι είναι ενεργοί.","Οι γείτονες ελέγχουν πόσοι γύρω τους έχουν ενεργοποιηθεί.","Πράσινο = παλαιότερη ενεργοποίηση, πορτοκαλί = νέα ενεργοποίηση.","Only five seed agents are initially active.","Neighbours check what fraction of their contacts has adopted.","Green means previously active; amber means newly active."],
@@ -61,7 +62,7 @@ export function LiveNarrator({paper,data,frame,maxFrame,playing,timelineActive}:
    <div className="narratorEyebrow"><Activity size={16}/><span>{t("ΤΙ ΣΥΜΒΑΙΝΕΙ ΤΩΡΑ","WHAT IS HAPPENING NOW")}</span><span className={playing?"active":""}>{playing?t("ΣΕ ΕΞΕΛΙΞΗ","RUNNING"):timelineActive?t("ΠΑΥΣΗ","PAUSED"):t("ΕΤΟΙΜΟ","READY")}</span></div>
    <div className="narratorProgress"><i style={{width:(timelineActive?Math.min(100,frame/maxFrame*100):0)+"%"}}/></div>
    <p className="narratorText">{textNow}</p>
-   <div className="narratorMetrics">{first.map((m,i)=><div key={i}><small>{m.label}</small><strong>{m.value}</strong></div>)}</div>
+   <div className="narratorMetrics">{first.map((m,i)=><div key={i}><small>{localizedMetric(m.label,language)}</small><strong>{m.value}</strong></div>)}</div>
    <p className="narratorInterpretation">{t("Τα παραπάνω είναι τιμές της τρέχουσας εκπαιδευτικής προσομοίωσης, όχι δημοσιευμένα αποτελέσματα του paper.","These are values from the current educational simulation, not measured results reported by the paper.")}</p>
  </div>;
 }
