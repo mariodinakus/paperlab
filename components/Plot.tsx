@@ -4,8 +4,8 @@ import type {LabResult,XY} from "../lib/engine";
 const colors=["#50e8d0","#65aafb","#ffc079","#c5a1ff","#fb7fa1"];
 function bounds(a:number[]):[number,number]{const v=a.filter(Number.isFinite);if(!v.length)return [0,1];let lo=Math.min(...v),hi=Math.max(...v);if(hi-lo<1e-6){lo-=1;hi+=1}const d=(hi-lo)*.08;return [lo-d,hi+d]}
 const num=(n:number)=>!Number.isFinite(n)?"—":Math.abs(n)>=1000?n.toFixed(0):Math.abs(n)<.01?n.toExponential(1):n.toFixed(Math.abs(n)<1?2:1);
-type Props={data:LabResult;progress?:number;playing?:boolean;frame?:number;motionMs?:number;trajectory?:boolean;cascade?:boolean};
-export default function Plot({data,progress,playing=false,frame=0,motionMs=160,trajectory=false,cascade=false}:Props){
+type Props={data:LabResult;progress?:number;playing?:boolean;frame?:number;motionMs?:number;trajectory?:boolean;cascade?:boolean;search?:boolean;bridges?:boolean};
+export default function Plot({data,progress,playing=false,frame=0,motionMs=160,trajectory=false,cascade=false,search=false,bridges=false}:Props){
  const id=useId().replace(/:/g,""),extent=useMemo(()=>{
   const pts=data.tracks.flatMap(t=>t.data).filter(p=>Number.isFinite(p.x)&&Number.isFinite(p.y));
   return {x:bounds(pts.map(p=>p.x)),y:bounds(pts.map(p=>p.y))}
@@ -29,18 +29,18 @@ export default function Plot({data,progress,playing=false,frame=0,motionMs=160,t
   const radius=(n:{size?:number})=>Math.max(2.7,Math.min(13,n.size||4));
   const pos=(n:{x:number;y:number})=>({cx:n.x*8+50,cy:n.y*4+30});
   return <div className="plot plotLive" style={vizStyle}><svg viewBox="0 0 900 470" role="img" aria-label="Evolving scientific network">{defs}{backdrop}
-   <g>{data.edges.map((e,i)=>{const u=data.nodes[e.from],v=data.nodes[e.to];if(!u||!v)return null;const active=cascade&&u.group!==3&&v.group!==3;return <line key={e.from+"-"+e.to+"-"+i} x1={pos(u).cx} y1={pos(u).cy} x2={pos(v).cx} y2={pos(v).cy} stroke={active?"#53e5c7":"#377283"} strokeWidth={active?1.5:.85} opacity={active?.62:.24} className="networkEdge"/>})}</g>
-   <g>{data.nodes.map((n,i)=>{const {cx,cy}=pos(n);const active=cascade?n.group!==3:false,brandNew=cascade&&n.group===2;
-     const fill=cascade?(brandNew?"#ffc46f":active?"#55efc8":"#305c6b"):colors[(n.group||0)%colors.length];
+   <g>{data.edges.map((e,i)=>{const u=data.nodes[e.from],v=data.nodes[e.to];if(!u||!v)return null;const active=(cascade||search)&&u.group===1&&v.group===1,bridge=bridges&&u.group!==v.group;return <line key={e.from+"-"+e.to+"-"+i} x1={pos(u).cx} y1={pos(u).cy} x2={pos(v).cx} y2={pos(v).cy} stroke={active?"#53e5c7":bridge?"#ffc079":"#377283"} strokeWidth={active||bridge?1.5:.85} opacity={active?.62:bridge?.65:.24} className="networkEdge"/>})}</g>
+   <g>{data.nodes.map((n,i)=>{const {cx,cy}=pos(n);const active=(cascade||search)&&n.group===1,brandNew=(cascade||search)&&n.group===2;
+     const fill=cascade||search?(brandNew?"#ffc46f":active?"#55efc8":"#305c6b"):colors[(n.group||0)%colors.length];
      return <g key={i} className="nodeMotion">
       {(active||brandNew)&&<circle cx={cx} cy={cy} r={radius(n)+(brandNew?9:5)} fill={fill} opacity={brandNew?.13:.065} className="nodeAura"/>}
       {brandNew&&<circle cx={cx} cy={cy} r={radius(n)+2.5} fill="none" stroke="#ffc46f" strokeWidth="1.3" className="signalWave"/>}
       <circle className="nodeCore" cx={cx} cy={cy} r={radius(n)} fill={fill} stroke={active?"#d1fff0":"#142b38"} strokeWidth={active?1.3:1} opacity={active?1:.82}>
-       <title>{cascade?"Agent "+(i+1)+" · "+(brandNew?"newly activated":active?"activated":"inactive"):"Node "+(i+1)}</title>
+       <title>{cascade?"Agent "+(i+1)+" · "+(brandNew?"newly activated":active?"activated":"inactive"):search?"Vertex "+(i+1)+" · "+(active?"settled":brandNew?"frontier":"unreached"):"Node "+(i+1)}</title>
       </circle></g>})}</g>
-   <text x="51" y="452" fontSize="12" fill="#94b5c2">{cascade?"THRESHOLD CONTAGION": "NETWORK TOPOLOGY"} / {data.nodes.length} NODES / {data.edges.length} EDGES</text>
+   <text x="51" y="452" fontSize="12" fill="#94b5c2">{cascade?"THRESHOLD CONTAGION":search?"DIJKSTRA SHORTEST-PATH SEARCH":"NETWORK TOPOLOGY"} / {data.nodes.length} NODES / {data.edges.length} EDGES</text>
    <text x="850" y="452" textAnchor="end" fontSize="12" fill="#7fe8d4">{playing?"● RUNNING":"● PAUSED"}</text>
-  </svg>{cascade&&<div className="plotLegend"><span><i style={{background:"#305c6b"}}/>Inactive</span><span><i style={{background:"#55efc8"}}/>Activated</span><span><i style={{background:"#ffc46f"}}/>New this round</span></div>}</div>;
+  </svg>{(cascade||search)&&<div className="plotLegend"><span><i style={{background:"#305c6b"}}/>{search?"Unreached":"Inactive"}</span><span><i style={{background:"#55efc8"}}/>{search?"Settled":"Activated"}</span><span><i style={{background:"#ffc46f"}}/>{search?"Frontier":"New this round"}</span></div>}</div>;
  }
  const visible=(tr:XY[])=>tr.slice(0,Math.max(1,Math.min(tr.length,Math.ceil(tr.length*portion)))).filter(pt=>Number.isFinite(pt.x)&&Number.isFinite(pt.y));
  const primary=data.tracks[0];
