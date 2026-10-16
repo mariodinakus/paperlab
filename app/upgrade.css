@@ -243,3 +243,59 @@ body{background:#080e17!important;color:#e8f6fa;font-feature-settings:"ss01" on}
 @media(max-width:1000px){.cinematicTransport{flex-direction:column;align-items:stretch}.transportExtras,.primaryTransport{justify-content:flex-start}}
 @media(max-width:620px){.simPanel{border-radius:12px!important}.cinemaViewport .plot svg{max-height:none}.frameHud{top:7px;left:7px;right:7px;font-size:8px}.frameHud>span{padding:6px}.timelineDeck{padding:12px}.timelineHeading small{display:none}.timelineHeading>span{font-size:9px;letter-spacing:1px}.primaryTransport{display:grid;grid-template-columns:minmax(0,1fr) 42px 42px 85px;width:100%}.playbackButton{padding:8px!important}.speedSelector{min-width:0;padding:0 5px;justify-content:space-around}.speedSelector select{padding:5px 0}.transportExtras{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.transportExtras .outline{padding:10px 5px;font-size:10px;gap:4px}}
 @media(prefers-reduced-motion:reduce){.cellMotion,.nodeMotion .nodeCore,.nodeMotion .nodeAura,.networkEdge{transition:none!important}.signalWave,.pulseBeacon{animation:none!important}}
+
+
+/* EDITION 05 — BILINGUAL RESEARCH LEARNING SYSTEM */
+.langToggle{display:inline-flex;align-items:center;gap:3px;padding:3px;background:#0d2630;border:1px solid #37636b;border-radius:10px;flex:none}
+.langToggle button{color:#8eb5bb;border:0;border-radius:7px;padding:7px 10px;min-width:35px;background:transparent;font-size:11px;font-weight:850;letter-spacing:.3px}
+.langToggle button:hover{color:#effff8;background:#1b4c51}
+.langToggle button.selected{color:#062e2b;background:#6ff1d3;box-shadow:0 2px 12px #4aecc229}
+.labLight .langToggle{background:#e9f4f4;border-color:#aed4d1}
+.labLight .langToggle button{color:#467a79}
+.labLight .langToggle button.selected{color:#12483e;background:#b3f5df}
+.paperOverview{margin:28px 0 25px}
+.guideSectionTitle{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:15px}
+.guideSectionTitle>strong{font-size:16px;color:#e6fff5;letter-spacing:-.5px}
+.guideGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.guideCard{position:relative;min-width:0;border:1px solid #315a60;border-radius:14px;padding:20px 19px 21px;background:linear-gradient(135deg,#15303a,#10212e);overflow:hidden;box-shadow:0 11px 26px #0002}
+.guideCard:nth-child(2){background:linear-gradient(135deg,#203442,#112431);border-color:#395c70}
+.guideCard:nth-child(3){background:linear-gradient(135deg,#27322d,#192831);border-color:#4a624f}
+.guideCard:before{content:"";position:absolute;left:-28px;top:-50px;width:130px;height:130px;border-radius:50%;background:#3dd5bd12;filter:blur(25px)}
+.guideCard>span{position:relative;z-index:1;display:flex;align-items:center;gap:8px;color:#68f0d1;font-size:10px;font-weight:850;letter-spacing:1.3px}
+.guideCard:nth-child(2)>span{color:#94c4ff}
+.guideCard:nth-child(3)>span{color:#efca9b}
+.guideCard p{color:#b3cbd1;line-height:1.78;font-size:13px;position:relative;z-index:1;margin:14px 0 0}
+.liveNarrator{margin:0 0 27px;padding:18px 16px 20px;background:linear-gradient(160deg,#123d40,#112632);border:1px solid #327772;border-radius:13px;box-shadow:inset 0 0 30px #27665c12}
+.narratorEyebrow{display:flex;gap:7px;align-items:center;font-size:10px;letter-spacing:1.2px;font-weight:850;color:#74eccc}
+.narratorEyebrow span:first-of-type{flex:1}
+.narratorEyebrow span:last-child{flex:none;font-size:9px;letter-spacing:.3px;color:#86a5ab;background:#18343e;border:1px solid #305a60;padding:5px;border-radius:4px}
+.narratorEyebrow span:last-child.active{color:#7df8d0;border-color:#388b7a;background:#134b47}
+.narratorProgress{width:100%;height:4px;border-radius:8px;background:#214754;overflow:hidden;margin:16px 0 12px}
+.narratorProgress i{display:block;height:100%;background:linear-gradient(90deg,#31b6b0,#91ffd3);transition:width .16s linear}
+.narratorText{font-size:14px;color:#f0fefa;line-height:1.72;font-weight:550;margin:11px 0 18px}
+.narratorMetrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.narratorMetrics>div{padding:10px;background:#0d2733;border:1px solid #325362;border-radius:9px;min-width:0}
+.narratorMetrics small{font-size:9px;color:#8cb6bc;line-height:1.4;display:block;min-height:17px}
+.narratorMetrics strong{font-size:19px;display:block;margin-top:6px;color:#e9fff8;overflow-wrap:anywhere;letter-spacing:-.3px;font-variant-numeric:tabular-nums}
+.narratorInterpretation{font-size:10px!important;line-height:1.7!important;color:#84aab6!important;margin:15px 0 0!important}
+.scienceBoundary{background:#262a2b;border:1px solid #5b5c51;padding:16px;border-radius:11px;margin-top:23px}
+.scienceBoundary>div{display:flex;gap:8px;align-items:center;color:#ffcd97;font-size:11px;font-weight:800;letter-spacing:.4px}
+.scienceBoundary p{font-size:11px;line-height:1.75;color:#cbbeb2;margin:10px 0 0}
+.guideCard p,.narratorText,.scienceBoundary p{overflow-wrap:break-word}
+.labLight .guideSectionTitle strong{color:#254c51}
+.labLight .guideCard,.labLight .guideCard:nth-child(2),.labLight .guideCard:nth-child(3){background:#fff;border-color:#c4dfe0;box-shadow:0 9px 26px #1e4a5010}
+.labLight .guideCard>span{color:#138778}
+.labLight .guideCard:nth-child(2)>span{color:#3b799f}
+.labLight .guideCard:nth-child(3)>span{color:#956f47}
+.labLight .guideCard p{color:#3e636e}
+.labLight .liveNarrator{background:#e5f7f4;border-color:#add8cd}
+.labLight .narratorText{color:#204b4c}
+.labLight .narratorMetrics>div{background:#f4fffb;border-color:#bfdfd7}
+.labLight .narratorMetrics strong{color:#255e5a}
+.labLight .narratorMetrics small,.labLight .narratorInterpretation{color:#477b7b!important}
+.labLight .scienceBoundary{background:#fff8ef;border-color:#d9c6ab}
+.labLight .scienceBoundary>div{color:#895924}
+.labLight .scienceBoundary p{color:#6e5d4c}
+@media(max-width:1300px){.guideGrid{grid-template-columns:repeat(3,minmax(0,1fr))}.guideCard{padding:16px}}
+@media(max-width:950px){.guideGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.guideCard:last-child{grid-column:1/-1}.langToggle{order:-1}.topRight .langToggle{margin-left:4px}}
+@media(max-width:650px){.langToggle{gap:1px;padding:2px}.langToggle button{padding:6px 8px;min-width:30px}.guideGrid{grid-template-columns:1fr;gap:8px}.guideCard:last-child{grid-column:auto}.guideSectionTitle>strong{font-size:15px}.guideCard{padding:15px}.guideCard p{font-size:12px}.paperOverview{margin:19px 0}.topRight .langToggle{margin-left:0}.topRight{gap:5px}.topRight .edition{display:none}.narratorText{font-size:13px}}
